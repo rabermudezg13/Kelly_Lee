@@ -1,0 +1,17 @@
+// @vitest-environment node
+import {readFileSync} from 'node:fs';
+import {afterAll,beforeAll,beforeEach,describe,expect,test} from 'vitest';
+import {initializeTestEnvironment,RulesTestEnvironment,assertFails} from '@firebase/rules-unit-testing';
+import {doc,setDoc,writeBatch,Timestamp,getDocs,collection} from 'firebase/firestore';
+import {createVisitStore} from '../src/visitStore';
+import {currentWeek} from '../src/utils/dateUtils';
+describe.skipIf(!process.env.FIRESTORE_EMULATOR_HOST)('weekly and historical Firestore queries',()=>{
+ let env:RulesTestEnvironment;const now=Date.parse('2026-10-03T16:00:00Z');const week=currentWeek(now);
+ beforeAll(async()=>{env=await initializeTestEnvironment({projectId:'demo-kelly-store',firestore:{host:'127.0.0.1',port:8080,rules:readFileSync('firestore.rules','utf8')}});});
+ afterAll(async()=>{await env.cleanup();});beforeEach(async()=>{await env.clearFirestore();});
+ async function seed(count=1){await env.withSecurityRulesDisabled(async c=>{const db=c.firestore();await setDoc(doc(db,'leeStaff','staff'),{name:'Fictional Staff',email:'staff@example.test',approved:true});let batch=writeBatch(db);let writes=0;for(let i=0;i<count;i++){batch.set(doc(db,'leeVisits',`weekly-${String(i).padStart(4,'0')}`),{name:'Current Visitor',host:'Desk',purpose:'Other',createdBy:'visitor',checkIn:Timestamp.fromMillis(now),checkOut:null});if(++writes%400===0){await batch.commit();batch=writeBatch(db);}}await batch.commit();await setDoc(doc(db,'leeVisits','historic'),{name:'José Archived',host:'Desk',purpose:'Other',createdBy:'visitor',checkIn:Timestamp.fromMillis(week.start-1),checkOut:null});await setDoc(doc(db,'leeVisits','future'),{name:'Future Visitor',host:'Desk',purpose:'Other',createdBy:'visitor',checkIn:Timestamp.fromMillis(week.end),checkOut:null});});}
+ function store(){return createVisitStore(env.authenticatedContext('staff',{email:'staff@example.test',email_verified:false,firebase:{sign_in_provider:'password'}}).firestore() as never);}
+ test('weekly query excludes old/future visits and does not truncate at 500',async()=>{await seed(501);const result=await new Promise<unknown[]>((resolve,reject)=>{let stop=()=>{};stop=store().watchWeek(week.start,week.end,v=>{stop();resolve(v);},reject);});expect(result).toHaveLength(501);const archived=await store().searchHistory({name:'jose',from:'',to:''});expect(archived.items.map(v=>v.id)).toEqual(['historic']);},20000);
+ test('history continues beyond 1000 scanned records without duplicates at equal timestamps',async()=>{await seed(1050);const first=await store().searchHistory({name:'jose',from:'',to:''});expect(first.items).toHaveLength(0);expect(first.hasMore).toBe(true);expect(first.scanned).toBe(1000);const next=await store().searchHistory({name:'jose',from:'',to:''},first.cursor);expect(next.items.map(v=>v.id)).toEqual(['historic']);expect(next.hasMore).toBe(false);},20000);
+ test('date search stays within inclusive local dates and history requires authenticated staff',async()=>{await seed();const page=await store().searchHistory({name:'',from:'2026-09-28',to:'2026-10-04'});expect(page.items.map(v=>v.id)).toEqual(['weekly-0000']);await assertFails(getDocs(collection(env.unauthenticatedContext().firestore(),'leeVisits')));});
+});

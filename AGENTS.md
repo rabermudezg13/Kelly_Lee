@@ -8,10 +8,15 @@
 ## Arquitectura y alcance
 - Backend exclusivamente Firebase Authentication y Cloud Firestore; hosting previsto Firebase Hosting. No introducir Railway ni endpoints del proyecto original.
 - Repositorio destino: `rabermudezg13/Kelly_Lee`. `kelly-app-v2` es una referencia; no modificar su producción.
-- Mantener registro de visitantes, login staff y creación administrativa de cuentas y roster en tiempo real para todo staff aprobado.
+- Mantener registro de visitantes, login staff y creación administrativa de cuentas y roster en tiempo real para todo staff autenticado.
 - Registrar llegada/salida con `serverTimestamp()` y mostrar en `America/New_York`, considerando horario de verano.
-- Reglas de Firestore son la autoridad de acceso. Staff no puede registrarse ni autoaprobarse; cuentas y perfiles se crean mediante consola/Admin SDK por administradores del proyecto. Mantener client.permissions.disabledUserSignup=true y correo verificado. Visitantes registran llegada sin crear cuenta Auth.
+- Reglas de Firestore son la autoridad de acceso. Staff no puede registrarse ni autoaprobarse; cuentas y perfiles se crean mediante consola/Admin SDK por administradores del proyecto. Mantener client.permissions.disabledUserSignup=true. Cuentas email/password en Authentication Users acceden directamente; no exigir perfil, approval ni verificación email. Visitantes registran llegada sin crear cuenta Auth.
 - Visitantes no pueden leer el roster. No ampliar acceso para solucionar un fallo de interfaz.
+
+## Roster semanal e historial
+- Mostrar por defecto solo la semana actual de Florida (lunes a domingo), con límites de consulta UTC calculados desde America/New_York y sin límite de 500.
+- Conservar documentos anteriores; no borrar ni mover registros al cambiar de semana.
+- Historial de solo lectura con estado, filtros y paginación independientes; búsquedas no alteran el roster ni sus contadores. Requiere staff autenticado.
 
 ## Datos y configuración
 - Nunca guardar tokens, claves privadas, contraseñas ni datos personales reales en Git, pruebas, documentación o capturas.

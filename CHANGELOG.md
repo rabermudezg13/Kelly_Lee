@@ -1,5 +1,16 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Acceso directo de cuentas administrativas
+- Retirada aprobación y verificación obligatoria; Authentication Users email/password permite roster e historial sin perfil. Signup permanece bloqueado; acceso anónimo/público de lectura denegado.
+- Build, 20 pruebas locales y nueve reglas/consultas en emulador correctos. Reglas y Hosting publicados en frontdeskbase; login público verificado. Aceptación autenticada por usuario pendiente.
+
+## 2026-10-03 — Roster semanal e historial independiente
+- Objetivo: mostrar semana actual y buscar visitantes anteriores conservando registros.
+- Cambios: límites semanales Monday-Monday en America/New_York, consulta Firestore sin límite de 500, búsqueda por nombre parcial/rango local y cursores, historial de solo lectura independiente; distinguir verificación email y aprobación. Perfil de acceso solicitado corregido administrativamente sin guardar PII.
+- Verificación: 20 pruebas locales y nueve reglas/consultas en emulador aprobadas; build correcto. Casos de 501 visitas, búsqueda después de 1000 documentos, DST y no alteración del roster al cerrar historial.
+- Estado: publicado en Firebase junto al acceso directo solicitado.
+
+
 ## 2026-10-03 — Staff creado solo por administradores
 - Objetivo: restringir creación de usuarios por solicitud del usuario.
 - Cambios: formulario solo login, registro cliente eliminado, verificación email para cuentas administrativas, escritura cliente de perfiles denegada; intake visitante sin Auth con timestamp/payload validados. Documentación de creación en Firebase Console y flag de signup.

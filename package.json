@@ -7,7 +7,7 @@
     "dev": "vite --host 127.0.0.1 --port 3030",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
-    "test:rules": "firebase emulators:exec --only firestore --project demo-kelly-lee 'vitest run tests/rules.test.ts'"
+    "test:rules": "firebase emulators:exec --only firestore --project demo-kelly-lee 'vitest run tests/rules.test.ts tests/store.test.ts'"
   },
   "dependencies": {
     "firebase": "^12.0.0",
