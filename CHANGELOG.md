@@ -1,5 +1,13 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Publicación en Firebase
+- Objetivo: desplegar por solicitud expresa del usuario.
+- Cambios: Hosting apunta al sitio separado kelly-education-lee; Firestore default creado en us-east1 y reglas publicadas; Authentication Anonymous habilitado junto a Email/Password existente, dominios del sitio autorizados. Configuración web en .env.local ignorado.
+- Pruebas: build correcto, diez UI/fechas aprobadas; seis reglas aprobadas en emulador demo con Java 21; Firebase compiló/publicó reglas y Hosting. Navegador confirma home, formulario visitante y login/registro staff.
+- Estado: publicado https://kelly-education-lee.web.app. Sitio original preservado.
+- Límites: aceptación con staff real pendiente; sin visitas escritas en producción.
+
+
 ## 2026-10-03 — .agents y fechas originales
 - Cambios: `.agents/skills/.gitkeep`, `.agents/date-format.md`, `src/utils/dateUtils.ts` y adaptación del roster. Reglas copiadas de utilidades originales en `1589e02`; preservación de offsets y DST.
 - Verificación: diez pruebas UI/fechas aprobadas, build correcto y git diff --check correcto.

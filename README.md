@@ -2,6 +2,8 @@
 
 Independent front desk app based on the visitor registration / staff portal workflows of [kelly-app-v2](https://github.com/rabermudezg13/kelly-app-v2), reference commit `1589e02`. React + TypeScript + Vite. Backend entirely Firebase Authentication + Cloud Firestore. No Railway server or original production endpoints.
 
+Live app: https://kelly-education-lee.web.app (Firebase Hosting site `kelly-education-lee` in project `frontdeskbase`).
+
 ## Features
 - Public visitor registration: name, reason, host, server-generated arrival time.
 - Staff account registration and sign-in. New accounts await administrator approval and email verification.
@@ -27,13 +29,17 @@ npm run build
 npx firebase-tools login
 npx firebase-tools deploy --only firestore:rules,hosting --project frontdeskbase
 ```
-**Review existing Hosting sites and Firestore rules first:** deploying these rules replaces the project's rules. Merge with any existing collections' policies before deployment. Hosting default site may already host another app; use a separate Hosting site/target when appropriate. No deployment has been performed by this setup.
+**Review existing Hosting sites and Firestore rules first:** deploying these rules replaces the project's rules. Merge with any existing collections' policies before deployment. Hosting default site may already host another app; use a separate Hosting site/target when appropriate. Kelly Lee uses its own Hosting site `kelly-education-lee`; the existing default site is preserved.
 
 ## Verification
 ```sh
-npm test -- tests/app.test.tsx
+npm test
+# With Firebase CLI and Java 21 installed:
+npm run test:rules
 npm run build
 ```
 Roster loads the newest 500 visits; counters and filters apply to that window. Anonymous visitor sessions cannot read records. Visitor submission is append-only; checkout requires verified, approved staff. For a shared kiosk use the visitor page in a separate browser profile from staff sessions. Before public launch add App Check enforcement / abuse controls and complete authenticated end-to-end acceptance with test records. No real visitor records have been copied from the reference project.
 
 Firebase implementation references: [password authentication](https://firebase.google.com/docs/auth/web/password-auth), [Firestore listeners](https://firebase.google.com/docs/firestore/query-data/listen), [security conditions](https://firebase.google.com/docs/firestore/security/rules-conditions).
+
+Deployment verified on 2026-10-03 (America/New_York): Hosting and Firestore rules released; home, visitor and staff screens verified in browser. Six rules tests passed using a demo Firestore emulator; ten UI/date tests passed. Real staff acceptance is pending. Firestore database region: us-east1.

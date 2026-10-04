@@ -11,14 +11,25 @@
 
 ## Estado real
 - Repositorio Kelly_Lee clonado; remoto estaba vacío. App independiente React/TypeScript/Vite creada localmente.
-- Registro visitante, login/registro staff, roster con actualizaciones Firestore y checkout implementados; build y diez pruebas locales aprobados; permisos y conexión real pendientes.
+- Registro visitante, login/registro staff, roster con actualizaciones Firestore y checkout implementados; build y diez pruebas locales aprobados; seis pruebas de reglas aprobadas en emulador; backend configurado y desplegado. Aceptación con cuenta staff real pendiente.
 - Staff interpretado provisionalmente como creación de cuentas de acceso; pendiente respuesta sobre registro de entrada/salida de staff.
 - Nuevas cuentas requieren correo verificado y aprobación administrativa; aprobación mediante consola Firebase.
-- Configuración Firebase declarada mediante variables VITE_FIREBASE; app web existente confirmada en consola; servicios habilitados y conexión real pendientes de revisar.
-- Sin despliegue ni escritura de visitantes reales. Publicado en rama `codex/lee-county-firebase`, PR borrador #1.
+- Configuración Firebase declarada mediante variables VITE_FIREBASE; app web existente configurada localmente; Email/Password y Anonymous habilitados; Firestore (default) creado en us-east1.
+- Desplegado en https://kelly-education-lee.web.app; sin escritura de visitantes reales. Publicado en rama `codex/lee-county-firebase`, PR borrador #1.
 - Demo explícita con personas ficticias en memoria para pruebas locales.
 
 ## Historial
+
+### 2026-10-03 — Despliegue Firebase autorizado
+- Objetivo: publicar app por petición expresa del usuario.
+- Cambios: Hosting separado `kelly-education-lee`, Firestore (default) en us-east1, reglas publicadas, Anonymous habilitado y dominios autorizados; configuración web local ignorada por Git. El sitio original `frontdeskbase` conserva su release.
+- Verificación: build de producción correcto sin demo; diez pruebas UI/fechas y seis pruebas de reglas en emulador aprobadas; compilación/publicación Firebase correcta; navegador confirma home, visitante y login/registro staff públicos.
+- Estado: publicado en https://kelly-education-lee.web.app.
+- Límites: sin pruebas con staff real verificado/aprobado; sin escribir visitas ficticias en producción.
+- Pendientes: crear/aprobar las cuentas staff reales.
+- Referencia: sitio kelly-education-lee, proyecto frontdeskbase; PR #1.
+- Detalle: CHANGELOG.md.
+
 
 ### 2026-10-03 — .agents y manejo de fechas original
 - Objetivo: crear `.agents/skills` y `.agents/date-format.md`; copiar manejo de fechas de app original.
