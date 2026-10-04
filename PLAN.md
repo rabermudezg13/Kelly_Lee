@@ -1,0 +1,4 @@
+# Plan — 2026-10-03
+Crear app independiente React/Vite basada en los flujos de recepción y staff de kelly-app-v2 (referencia 1589e02). Destino Kelly_Lee vacío; conservar original.
+Aceptación: pantalla visitante con nombre, motivo y anfitrión; registro/login staff; aprobación de staff por administrador; roster en tiempo real para staff aprobado con hora America/New_York; búsqueda y salida; errores visibles; diseño responsive. Firebase Authentication y Firestore con reglas que impiden autoaprobarse. Registro público con sesión anónima, sin lectura de visitantes. Demo explícita con datos ficticios solo en memoria.
+Verificación: tipos/build, pruebas UI demo y reglas en emulador si disponible. Configuración/despliegue real bloqueados hasta acceso Firebase. Sin migración de datos ni modificación del proyecto original.

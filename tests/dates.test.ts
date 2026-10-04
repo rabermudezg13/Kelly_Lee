@@ -1,0 +1,8 @@
+import {expect,test} from 'vitest';
+import {formatMiamiTime,formatMiamiTimeOnly,getMiamiDateKey,formatMiamiDateDisplay} from '../src/utils/dateUtils';
+test('legacy UTC without timezone equals explicit UTC',()=>{expect(formatMiamiTime('2026-01-07T21:03:47.123456')).toBe(formatMiamiTime('2026-01-07T21:03:47.123456Z'));expect(formatMiamiTime('2026-01-07 21:03:47')).toBe(formatMiamiTime('2026-01-07T21:03:47Z'));});
+test('offset including milliseconds is preserved',()=>{expect(getMiamiDateKey('2026-10-03T00:30:00.100+02:00')).toBe('2026-10-02');expect(formatMiamiTime('2026-10-03T00:30:00.100+02:00')).toBe(formatMiamiTime('2026-10-02T22:30:00.100Z'));});
+test('groups arrivals by Florida date at midnight',()=>{expect(getMiamiDateKey('2026-10-03T03:59:59Z')).toBe('2026-10-02');expect(getMiamiDateKey('2026-10-03T04:00:00Z')).toBe('2026-10-03');});
+test('DST skips spring hour and repeats autumn hour',()=>{expect(formatMiamiTimeOnly('2026-03-08T06:59:59Z')).toBe('01:59:59 AM');expect(formatMiamiTimeOnly('2026-03-08T07:00:00Z')).toBe('03:00:00 AM');expect(formatMiamiTimeOnly('2026-11-01T05:30:00Z')).toBe('01:30:00 AM');expect(formatMiamiTimeOnly('2026-11-01T06:30:00Z')).toBe('01:30:00 AM');});
+test('invalid dates never turn into current day',()=>{expect(formatMiamiTime(null)).toBe('N/A');expect(formatMiamiTime('invalid')).toBe('Invalid Date');expect(getMiamiDateKey('invalid')).toBe('');expect(getMiamiDateKey('2026-10-03')).toBe('');expect(formatMiamiDateDisplay(null)).toBe('');});
+test('Firebase milliseconds use same formatter',()=>{expect(getMiamiDateKey(Date.parse('2026-10-03T04:00:00Z'))).toBe('2026-10-03');});

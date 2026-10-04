@@ -1,7 +1,7 @@
 # Reglas de trabajo — Kelly Education Lee County
 
 ## Antes de trabajar
-- Leer `memory.md`, `PLAN.md`, `README.md` y las entradas recientes de `CHANGELOG.md`.
+- Leer `.agents/date-format.md`, `memory.md`, `PLAN.md`, `README.md` y las entradas recientes de `CHANGELOG.md`.
 - Contrastar la memoria con Git y evidencia actual. La memoria no prueba que producción esté sana.
 - Planificar funciones nuevas: alcance, criterios de aceptación y pruebas antes de editar. Trabajar en una rama aislada.
 
