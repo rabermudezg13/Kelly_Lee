@@ -20,6 +20,14 @@
 
 ## Historial
 
+### 2026-10-03 — Crédito de creación
+- Objetivo: añadir “Created by Rodrigo Bermudez · Cafe Cultura LLC for Kelly Education, with lots of love ❤️”.
+- Cambios: pie de página compartido y visible en móvil.
+- Verificación: build y git diff --check aprobados; Firebase Hosting publicado; navegador confirma crédito en /visit.
+- Estado: publicado en https://kelly-education-lee.web.app.
+- Detalle: CHANGELOG.md.
+
+
 ### 2026-10-03 — Despliegue Firebase autorizado
 - Objetivo: publicar app por petición expresa del usuario.
 - Cambios: Hosting separado `kelly-education-lee`, Firestore (default) en us-east1, reglas publicadas, Anonymous habilitado y dominios autorizados; configuración web local ignorada por Git. El sitio original `frontdeskbase` conserva su release.

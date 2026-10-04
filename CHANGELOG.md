@@ -1,5 +1,12 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Crédito de creación
+- Objetivo: añadir crédito en inglés de Rodrigo Bermudez / Cafe Cultura LLC para Kelly Education con corazón.
+- Cambios: footer compartido y estilo responsive; crédito visible también en móvil.
+- Verificación: build y git diff --check aprobados; Firebase Hosting publicado; navegador confirma crédito en /visit.
+- Estado: publicado en https://kelly-education-lee.web.app.
+
+
 ## 2026-10-03 — Publicación en Firebase
 - Objetivo: desplegar por solicitud expresa del usuario.
 - Cambios: Hosting apunta al sitio separado kelly-education-lee; Firestore default creado en us-east1 y reglas publicadas; Authentication Anonymous habilitado junto a Email/Password existente, dominios del sitio autorizados. Configuración web en .env.local ignorado.
