@@ -1,5 +1,11 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Imagen de portada
+- Imagen adjunta incorporada sin editar en public/images/lee-cover.jpeg; saludo e ilustración lado a lado en escritorio, apilados en móvil, proporción completa.
+- Verificación: build, 20 pruebas locales, diff check y revisión desktop/móvil (390px sin desbordamiento) correctos. Hosting publicado y carga de imagen real de 1024px confirmada.
+- Estado: desplegado en https://kelly-education-lee.web.app; código y recurso guardados en PR #1. Sin cambios de backend.
+
+
 ## 2026-10-03 — Email, teléfono y ZIP de visitantes
 - Formulario requiere contacto; Firestore valida nuevos registros. Roster e historial muestran campos, con — para visitas anteriores; checkout conserva contacto.
 - Build, 20 pruebas locales y diez en emulador correctos. Publicado en Firebase; formulario público verificado. Sin pruebas de escritura en producción.

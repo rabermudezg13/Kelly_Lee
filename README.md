@@ -47,3 +47,5 @@ Reference: https://docs.cloud.google.com/identity-platform/docs/reference/rest/v
 Weekly/history verification: emulated fixtures confirm 501 weekly arrivals are all shown, archived visits remain stored, search continues beyond 1,000 scanned documents and repeated timestamps do not skip records. DST weeks use local boundaries rather than fixed 168-hour UTC periods.
 
 Visitor contact: required email, phone (7–15 digits with common separators) and US ZIP (5 digits or ZIP+4) are stored as strings and shown to staff in weekly roster and history. Existing records without contact fields show —; no migration or deletion. Contact cannot be edited during checkout.
+
+Home illustration: user-provided public/images/lee-cover.jpeg, preserved without editing and displayed responsively at its original aspect ratio.

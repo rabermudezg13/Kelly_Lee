@@ -20,6 +20,12 @@
 
 ## Historial
 
+## 2026-10-03 — Imagen de portada
+- Imagen adjunta incorporada sin editar en public/images/lee-cover.jpeg; saludo e ilustración lado a lado en escritorio, apilados en móvil, proporción completa.
+- Verificación: build, 20 pruebas locales, diff check y revisión desktop/móvil (390px sin desbordamiento) correctos. Hosting publicado y carga de imagen real de 1024px confirmada.
+- Estado: desplegado en https://kelly-education-lee.web.app; código y recurso guardados en PR #1. Sin cambios de backend.
+
+
 ### 2026-10-03 — Contacto del visitante
 - Objetivo: capturar email, teléfono y código postal y mostrar en roster.
 - Cambios: campos obligatorios, almacenamiento como texto, validación Firestore, columnas en roster e historial. Visitas antiguas muestran —; conservadas sin migración.

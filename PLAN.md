@@ -16,3 +16,6 @@ Eliminar approval y verificación obligatoria: cualquier sesión email/password 
 
 ## 2026-10-03 — Contacto de visitantes
 Agregar email, teléfono y ZIP obligatorios al formulario y Firestore; ZIP de cinco dígitos o ZIP+4 como texto preservando ceros. Email validado, teléfono permite formato internacional y separadores habituales. Mostrar columnas en roster e historial; registros anteriores muestran — sin migrar ni borrar. Validar payload completo, rechazo de valores inválidos y conservación de contacto durante checkout en emulador; UI de envío/lectura, build y publicación Firebase. No escribir datos de prueba en producción.
+
+## 2026-10-03 — Imagen en portada
+Incorporar imagen adjunta sin modificarla, como ilustración junto al saludo principal; mantener imagen completa con proporción original y apilar en móvil. Conservar accesos visitante/staff visibles. Validar build, vista desktop/móvil y carga pública; publicar solo Hosting y guardar recurso en Git.
