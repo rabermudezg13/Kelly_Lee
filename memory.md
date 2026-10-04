@@ -13,12 +13,22 @@
 - Repositorio Kelly_Lee clonado; remoto estaba vacío. App independiente React/TypeScript/Vite creada localmente.
 - Registro visitante, login/registro staff, roster con actualizaciones Firestore y checkout implementados; build y diez pruebas locales aprobados; seis pruebas de reglas aprobadas en emulador; backend configurado y desplegado. Aceptación con cuenta staff real pendiente.
 - Staff interpretado provisionalmente como creación de cuentas de acceso; pendiente respuesta sobre registro de entrada/salida de staff.
-- Nuevas cuentas requieren correo verificado y aprobación administrativa; aprobación mediante consola Firebase.
-- Configuración Firebase declarada mediante variables VITE_FIREBASE; app web existente configurada localmente; Email/Password y Anonymous habilitados; Firestore (default) creado en us-east1.
-- Desplegado en https://kelly-education-lee.web.app; sin escritura de visitantes reales. Publicado en rama `codex/lee-county-firebase`, PR borrador #1.
+- La nueva decisión sustituye el registro público: cuentas/perfiles solo por administradores en Firebase Console; se mantiene correo verificado.
+- Configuración Firebase declarada mediante variables VITE_FIREBASE; app web existente configurada localmente; Email/Password habilitado; signup cliente deshabilitado; Firestore (default) creado en us-east1.
+- Desplegado en https://kelly-education-lee.web.app; sin escritura de visitantes reales. Staff: creación administrativa solamente. Publicado en rama `codex/lee-county-firebase`, PR borrador #1.
 - Demo explícita con personas ficticias en memoria para pruebas locales.
 
 ## Historial
+
+### 2026-10-03 — Creación de usuarios solo por administrador
+- Objetivo: restringir registro staff a administradores.
+- Cambios: retirada del registro público y API cliente; perfiles leeStaff deniegan toda escritura cliente; login conserva acceso existente y envío de verificación. Visitantes registran llegada sin crear cuenta Auth, con reglas estrictas y sin lectura.
+- Plan: PLAN.md; elección de administración desde Firebase Console.
+- Verificación: diez pruebas UI/fechas y build aprobados; seis reglas en emulador aprobadas; disabledUserSignup=true confirmado; API signup rechaza ADMIN_ONLY_OPERATION; Hosting/reglas publicadas y navegador confirma login sin registro.
+- Estado: publicado en Firebase.
+- Pendientes: administrador crea cuentas y perfiles reales desde Firebase Console.
+- Detalle: CHANGELOG.md.
+
 
 ### 2026-10-03 — Crédito de creación
 - Objetivo: añadir “Created by Rodrigo Bermudez · Cafe Cultura LLC for Kelly Education, with lots of love ❤️”.

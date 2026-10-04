@@ -6,7 +6,7 @@ Live app: https://kelly-education-lee.web.app (Firebase Hosting site `kelly-educ
 
 ## Features
 - Public visitor registration: name, reason, host, server-generated arrival time.
-- Staff account registration and sign-in. New accounts await administrator approval and email verification.
+- Staff sign-in only. Project administrators create staff accounts in Firebase Console. Public Authentication signup is disabled.
 - Approved staff see the live visitor roster, arrival times in America/New_York, search, today's arrivals, currently checked in, and checkout.
 - Responsive desktop/mobile screens; explicit local demo using fictional in-memory data.
 
@@ -20,9 +20,9 @@ For a fictional preview set `VITE_DEMO_MODE=true` in `.env.local`. Demo data is 
 
 ## Connect frontdeskbase
 1. Open Firebase project frontdeskbase; register a Web app in Project settings. Copy apiKey, authDomain, projectId and appId into the corresponding VITE_FIREBASE variables. Web config is public; never put service account private keys in Vite.
-2. Enable Authentication → Email/Password and Anonymous. Add the local / deployed hostname to Authorized domains.
+2. Enable Authentication → Email/Password. Disable client signup with `client.permissions.disabledUserSignup=true`. Add the local / deployed hostname to Authorized domains.
 3. Create Firestore in production mode. Publish `firestore.rules` before using real records.
-4. Staff register and verify their email. An authorized project administrator reviews the account and changes `leeStaff/{uid}.approved` to `true` in Firebase Console. Client accounts cannot grant their own access. Click Check approval status to refresh the token.
+4. An authorized project administrator creates each account in Firebase Authentication → Users → Add user. Copy its UID and create `leeStaff/{uid}` in Firestore with `name` (string), `email` (string, same email), and `approved` (boolean true). End users cannot create or edit staff profiles. The user signs in, clicks Send verification email, verifies the email, then clicks Check approval status. Existing pending accounts can be reviewed and approved by the administrator.
 5. Build and publish with Firebase CLI:
 ```sh
 npm run build
@@ -38,8 +38,13 @@ npm test
 npm run test:rules
 npm run build
 ```
-Roster loads the newest 500 visits; counters and filters apply to that window. Anonymous visitor sessions cannot read records. Visitor submission is append-only; checkout requires verified, approved staff. For a shared kiosk use the visitor page in a separate browser profile from staff sessions. Before public launch add App Check enforcement / abuse controls and complete authenticated end-to-end acceptance with test records. No real visitor records have been copied from the reference project.
+Roster loads the newest 500 visits; counters and filters apply to that window. Visitors submit without creating Authentication accounts and cannot read records. Visitor submission is append-only; checkout requires verified, approved staff. For a shared kiosk use the visitor page in a separate browser profile from staff sessions. Before public launch add App Check enforcement / abuse controls and complete authenticated end-to-end acceptance with test records. No real visitor records have been copied from the reference project.
 
 Firebase implementation references: [password authentication](https://firebase.google.com/docs/auth/web/password-auth), [Firestore listeners](https://firebase.google.com/docs/firestore/query-data/listen), [security conditions](https://firebase.google.com/docs/firestore/security/rules-conditions).
 
 Deployment verified on 2026-10-03 (America/New_York): Hosting and Firestore rules released; home, visitor and staff screens verified in browser. Six rules tests passed using a demo Firestore emulator; ten UI/date tests passed. Real staff acceptance is pending. Firestore database region: us-east1.
+
+## Staff creation policy
+Public signup is disabled at the Firebase Authentication project level, including anonymous account creation. Staff profiles are writable only through administrative Console/Admin SDK access; all client creates/updates/deletes are denied. Existing staff logins continue to work. Visitors create only strictly validated leeVisits documents (name, host, allowed purpose, server timestamp, null checkout, createdBy=visitor). This public write-only intake preserves visitor check-in while Authentication signup is disabled. Authentication configuration is shared by all apps in frontdeskbase.
+
+Reference: https://docs.cloud.google.com/identity-platform/docs/reference/rest/v2/Config (ClientPermissionConfig).

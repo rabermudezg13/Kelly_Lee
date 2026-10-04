@@ -1,7 +1,7 @@
 import { getMiamiDateKey, formatMiamiTimeOnly } from './utils/dateUtils';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
-import { getFirestore, doc, setDoc, collection, addDoc, updateDoc, onSnapshot, query, orderBy, limit, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
+import { getFirestore, doc, collection, addDoc, updateDoc, onSnapshot, query, orderBy, limit, serverTimestamp, Timestamp } from 'firebase/firestore';
 export type Profile={name:string;email:string;approved:boolean};
 export type Visit={id:string;name:string;host:string;purpose:string;checkIn:number;checkOut:number|null};
 export const purposes=['Information session','New hire orientation','Fingerprinting','Badge pickup','Meet with staff','Other'];
@@ -24,16 +24,11 @@ export function watchProfile(next:(p:Profile|null)=>void,error:(e:unknown)=>void
  return()=>{stop();unsubscribe();};
 }
 export async function login(email:string,password:string){if(demo){demoProfile={name:'Demo staff',email,approved:true};profileListeners.forEach(f=>f(demoProfile));return;}await signInWithEmailAndPassword(requireBackend().auth,email,password);}
-export async function register(name:string,email:string,password:string){
- if(demo){demoProfile={name,email,approved:true};profileListeners.forEach(f=>f(demoProfile));return;}
- const {auth,db}=requireBackend();const account=await createUserWithEmailAndPassword(auth,email,password);
- await setDoc(doc(db,'leeStaff',account.user.uid),{name,email:account.user.email,approved:false});await sendEmailVerification(account.user);
-}
 export async function logout(){if(demo){demoProfile=null;profileListeners.forEach(f=>f(null));return;}await signOut(requireBackend().auth);}
 export async function checkIn(input:{name:string;host:string;purpose:string}){
  if(demo){visits=[{...input,id:crypto.randomUUID(),checkIn:Date.now(),checkOut:null},...visits];visitListeners.forEach(f=>f([...visits]));return;}
- const {auth,db}=requireBackend();if(!auth.currentUser)await signInAnonymously(auth);
- await addDoc(collection(db,'leeVisits'),{...input,checkIn:serverTimestamp(),checkOut:null,createdBy:auth.currentUser!.uid});
+ const {db}=requireBackend();
+ await addDoc(collection(db,'leeVisits'),{...input,checkIn:serverTimestamp(),checkOut:null,createdBy:'visitor'});
 }
 export function watchVisits(next:(v:Visit[])=>void,error:(e:unknown)=>void){
  if(demo){visitListeners.add(next);next([...visits]);return()=>{visitListeners.delete(next);};}
@@ -45,3 +40,5 @@ export const clock=(time:number)=>time?formatMiamiTimeOnly(time):'Saving…';
 export function message(error:unknown){const code=(error as {code?:string})?.code;const known:Record<string,string>={'auth/invalid-credential':'The email or password is incorrect.','auth/email-already-in-use':'This email already has an account. Please sign in.','auth/weak-password':'Please use a password with at least 8 characters.','auth/too-many-requests':'Too many attempts. Please try again later.','permission-denied':'You do not have permission. Ask an administrator to approve your staff account.','auth/network-request-failed':'Connection failed. Please try again.'};return code?known[code]||'Unable to complete this action. Please try again or contact your administrator.':error instanceof Error?error.message:'Something went wrong. Please try again.';}
 
 export async function refreshAccess(){const {auth}=requireBackend();await auth.currentUser?.reload();await auth.currentUser?.getIdToken(true);window.location.reload();}
+
+export async function sendVerification(){const {auth}=requireBackend();if(!auth.currentUser || auth.currentUser.isAnonymous)throw new Error('Please sign in first.');if(auth.currentUser.emailVerified)throw new Error('Your email is already verified. Ask your administrator to approve access.');await sendEmailVerification(auth.currentUser);}

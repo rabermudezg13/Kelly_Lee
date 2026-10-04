@@ -1,5 +1,12 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Staff creado solo por administradores
+- Objetivo: restringir creación de usuarios por solicitud del usuario.
+- Cambios: formulario solo login, registro cliente eliminado, verificación email para cuentas administrativas, escritura cliente de perfiles denegada; intake visitante sin Auth con timestamp/payload validados. Documentación de creación en Firebase Console y flag de signup.
+- Pruebas: diez UI/fechas, seis reglas en emulador, build y diff check aprobados. Firebase confirma disabledUserSignup=true y API signup rechaza ADMIN_ONLY_OPERATION. Reglas/Hosting publicados; navegador confirma login sin registro.
+- Estado: publicado en Firebase.
+
+
 ## 2026-10-03 — Crédito de creación
 - Objetivo: añadir crédito en inglés de Rodrigo Bermudez / Cafe Cultura LLC para Kelly Education con corazón.
 - Cambios: footer compartido y estilo responsive; crédito visible también en móvil.

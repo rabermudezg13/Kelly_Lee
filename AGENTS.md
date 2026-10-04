@@ -8,9 +8,9 @@
 ## Arquitectura y alcance
 - Backend exclusivamente Firebase Authentication y Cloud Firestore; hosting previsto Firebase Hosting. No introducir Railway ni endpoints del proyecto original.
 - Repositorio destino: `rabermudezg13/Kelly_Lee`. `kelly-app-v2` es una referencia; no modificar su producción.
-- Mantener registro de visitantes, registro/login staff y roster en tiempo real para todo staff aprobado.
+- Mantener registro de visitantes, login staff y creación administrativa de cuentas y roster en tiempo real para todo staff aprobado.
 - Registrar llegada/salida con `serverTimestamp()` y mostrar en `America/New_York`, considerando horario de verano.
-- Reglas de Firestore son la autoridad de acceso. Staff nuevo no puede autoaprobarse; requiere aprobación administrativa y correo verificado.
+- Reglas de Firestore son la autoridad de acceso. Staff no puede registrarse ni autoaprobarse; cuentas y perfiles se crean mediante consola/Admin SDK por administradores del proyecto. Mantener client.permissions.disabledUserSignup=true y correo verificado. Visitantes registran llegada sin crear cuenta Auth.
 - Visitantes no pueden leer el roster. No ampliar acceso para solucionar un fallo de interfaz.
 
 ## Datos y configuración

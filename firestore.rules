@@ -4,20 +4,16 @@ service cloud.firestore {
   function staff() { return request.auth != null && request.auth.token.email_verified == true && get(/databases/$(database)/documents/leeStaff/$(request.auth.uid)).data.approved == true; }
   match /leeStaff/{uid} {
    allow read: if request.auth != null && request.auth.uid == uid;
-   allow create: if request.auth != null && request.auth.uid == uid
-    && request.resource.data.keys().hasOnly(['name','email','approved'])
-    && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
-    && request.resource.data.email == request.auth.token.email && request.resource.data.approved == false;
-   allow update, delete: if false;
+   // Only trusted administrative SDK / Console access can manage staff profiles.
+   allow create, update, delete: if false;
   }
   match /leeVisits/{id} {
    allow read: if staff();
-   allow create: if request.auth != null
-    && request.resource.data.keys().hasOnly(['name','host','purpose','checkIn','checkOut','createdBy'])
+   allow create: if request.resource.data.keys().hasOnly(['name','host','purpose','checkIn','checkOut','createdBy'])
     && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
     && request.resource.data.host is string && request.resource.data.host.size() > 0 && request.resource.data.host.size() <= 100
     && request.resource.data.purpose in ['Information session','New hire orientation','Fingerprinting','Badge pickup','Meet with staff','Other']
-    && request.resource.data.createdBy == request.auth.uid
+    && request.resource.data.createdBy == 'visitor'
     && request.resource.data.checkIn == request.time && request.resource.data.checkOut == null;
    allow update: if staff() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['checkOut'])
     && resource.data.checkOut == null && request.resource.data.checkOut == request.time;
