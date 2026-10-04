@@ -5,7 +5,7 @@ Independent front desk app based on the visitor registration / staff portal work
 Live app: https://kelly-education-lee.web.app (Firebase Hosting site `kelly-education-lee` in project `frontdeskbase`).
 
 ## Features
-- Public visitor registration: name, reason, host, server-generated arrival time.
+- Public visitor registration: name, required email/phone/ZIP, reason, host, server-generated arrival time.
 - Staff sign-in only. Project administrators create staff accounts in Firebase Console. Public Authentication signup is disabled.
 - Authenticated staff see the live visitor roster, arrival times in America/New_York, search, today's arrivals, currently checked in, and checkout.
 - Responsive desktop/mobile screens; explicit local demo using fictional in-memory data.
@@ -45,3 +45,5 @@ Public signup is disabled at the Firebase Authentication project level, includin
 Reference: https://docs.cloud.google.com/identity-platform/docs/reference/rest/v2/Config (ClientPermissionConfig).
 
 Weekly/history verification: emulated fixtures confirm 501 weekly arrivals are all shown, archived visits remain stored, search continues beyond 1,000 scanned documents and repeated timestamps do not skip records. DST weeks use local boundaries rather than fixed 168-hour UTC periods.
+
+Visitor contact: required email, phone (7–15 digits with common separators) and US ZIP (5 digits or ZIP+4) are stored as strings and shown to staff in weekly roster and history. Existing records without contact fields show —; no migration or deletion. Contact cannot be edited during checkout.

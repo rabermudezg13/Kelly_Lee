@@ -9,8 +9,11 @@ service cloud.firestore {
   }
   match /leeVisits/{id} {
    allow read: if staff();
-   allow create: if request.resource.data.keys().hasOnly(['name','host','purpose','checkIn','checkOut','createdBy'])
+   allow create: if request.resource.data.keys().hasOnly(['name','host','purpose','checkIn','checkOut','createdBy','email','phone','postalCode'])
     && request.resource.data.name is string && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+    && request.resource.data.email is string && request.resource.data.email.size() <= 254 && request.resource.data.email.matches('^[^ @]+@[^ @]+[.][^ @]+$')
+    && request.resource.data.phone is string && request.resource.data.phone.size() >= 7 && request.resource.data.phone.size() <= 30 && request.resource.data.phone.matches('^[+0-9() .-]+$') && request.resource.data.phone.replace('[^0-9]', '').size() >= 7 && request.resource.data.phone.replace('[^0-9]', '').size() <= 15
+    && request.resource.data.postalCode is string && request.resource.data.postalCode.matches('^[0-9]{5}(-[0-9]{4})?$')
     && request.resource.data.host is string && request.resource.data.host.size() > 0 && request.resource.data.host.size() <= 100
     && request.resource.data.purpose in ['Information session','New hire orientation','Fingerprinting','Badge pickup','Meet with staff','Other']
     && request.resource.data.createdBy == 'visitor'

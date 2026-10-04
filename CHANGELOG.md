@@ -1,5 +1,9 @@
 # Bitácora de cambios
 
+## 2026-10-03 — Email, teléfono y ZIP de visitantes
+- Formulario requiere contacto; Firestore valida nuevos registros. Roster e historial muestran campos, con — para visitas anteriores; checkout conserva contacto.
+- Build, 20 pruebas locales y diez en emulador correctos. Publicado en Firebase; formulario público verificado. Sin pruebas de escritura en producción.
+
 ## 2026-10-03 — Acceso directo de cuentas administrativas
 - Retirada aprobación y verificación obligatoria; Authentication Users email/password permite roster e historial sin perfil. Signup permanece bloqueado; acceso anónimo/público de lectura denegado.
 - Build, 20 pruebas locales y nueve reglas/consultas en emulador correctos. Reglas y Hosting publicados en frontdeskbase; login público verificado. Aceptación autenticada por usuario pendiente.

@@ -13,3 +13,6 @@ Aceptación/pruebas: semana lunes/domingo y DST; historial encuentra registros a
 
 ## Acceso directo para cuentas administrativas
 Eliminar approval y verificación obligatoria: cualquier sesión email/password existente en Authentication Users accede al roster e historial sin perfil leeStaff. Mantener signup deshabilitado y rechazar sesiones anónimas. Probar reglas sin perfil, correo sin verificar, lectura pública/anónima denegada y checkout; desplegar reglas y Hosting.
+
+## 2026-10-03 — Contacto de visitantes
+Agregar email, teléfono y ZIP obligatorios al formulario y Firestore; ZIP de cinco dígitos o ZIP+4 como texto preservando ceros. Email validado, teléfono permite formato internacional y separadores habituales. Mostrar columnas en roster e historial; registros anteriores muestran — sin migrar ni borrar. Validar payload completo, rechazo de valores inválidos y conservación de contacto durante checkout en emulador; UI de envío/lectura, build y publicación Firebase. No escribir datos de prueba en producción.

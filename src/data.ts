@@ -5,7 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, collection, addDoc, updateDoc, onSnapshot, serverTimestamp, Timestamp } from 'firebase/firestore';
 export type Profile={name:string;email:string};
-export type Visit={id:string;name:string;host:string;purpose:string;checkIn:number;checkOut:number|null};
+export type Visit={id:string;name:string;host:string;purpose:string;email?:string;phone?:string;postalCode?:string;checkIn:number;checkOut:number|null};
 export const purposes=['Information session','New hire orientation','Fingerprinting','Badge pickup','Meet with staff','Other'];
 export const demo=import.meta.env.VITE_DEMO_MODE==='true';
 const config={apiKey:import.meta.env.VITE_FIREBASE_API_KEY,authDomain:import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,projectId:import.meta.env.VITE_FIREBASE_PROJECT_ID,appId:import.meta.env.VITE_FIREBASE_APP_ID};
@@ -25,7 +25,7 @@ export function watchProfile(next:(p:Profile|null)=>void,error:(e:unknown)=>void
 }
 export async function login(email:string,password:string){if(demo){demoProfile={name:'Demo staff',email};profileListeners.forEach(f=>f(demoProfile));return;}await signInWithEmailAndPassword(requireBackend().auth,email,password);}
 export async function logout(){if(demo){demoProfile=null;profileListeners.forEach(f=>f(null));return;}await signOut(requireBackend().auth);}
-export async function checkIn(input:{name:string;host:string;purpose:string}){
+export async function checkIn(input:{name:string;host:string;purpose:string;email:string;phone:string;postalCode:string}){
  if(demo){visits=[{...input,id:crypto.randomUUID(),checkIn:Date.now(),checkOut:null},...visits];visitListeners.forEach(f=>f([...visits]));return;}
  const {db}=requireBackend();
  await addDoc(collection(db,'leeVisits'),{...input,checkIn:serverTimestamp(),checkOut:null,createdBy:'visitor'});

@@ -13,7 +13,7 @@ export function historyBounds(filters:HistoryFilters) {
  if(start!==undefined&&end!==undefined&&start>=end)throw new Error('The end date must be on or after the start date.');
  return {start,end};
 }
-function decode(d:QueryDocumentSnapshot<DocumentData>):Visit {const v=d.data();return {id:d.id,name:v.name,host:v.host,purpose:v.purpose,checkIn:(v.checkIn as Timestamp|null)?.toMillis()||0,checkOut:(v.checkOut as Timestamp|null)?.toMillis()||null};}
+function decode(d:QueryDocumentSnapshot<DocumentData>):Visit {const v=d.data();return {id:d.id,name:v.name,host:v.host,purpose:v.purpose,email:v.email,phone:v.phone,postalCode:v.postalCode,checkIn:(v.checkIn as Timestamp|null)?.toMillis()||0,checkOut:(v.checkOut as Timestamp|null)?.toMillis()||null};}
 export function createVisitStore(db:Firestore) {
  const ref=collection(db,'leeVisits');
  return {

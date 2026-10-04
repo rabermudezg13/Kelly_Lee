@@ -20,6 +20,14 @@
 
 ## Historial
 
+### 2026-10-03 — Contacto del visitante
+- Objetivo: capturar email, teléfono y código postal y mostrar en roster.
+- Cambios: campos obligatorios, almacenamiento como texto, validación Firestore, columnas en roster e historial. Visitas antiguas muestran —; conservadas sin migración.
+- Verificación: build, 20 pruebas locales y diez reglas/consultas en emulador correctos; contacto se conserva durante checkout, payload inválido/incompleto rechazado, consultas conservan campos.
+- Estado: reglas y Hosting publicados; formulario público comprobado visualmente. PR #1 actualizado.
+- Pendiente: aceptación autenticada real del usuario; no se escribieron datos ficticios en producción.
+
+
 ### 2026-10-03 — Acceso directo desde Authentication Users
 - Solicitud: quitar approval; cuenta administrativa existente es válida.
 - Cambios: acceso por sesión email/password; sin perfil leeStaff, approved ni emailVerified como requisito. Pantalla pendiente retirada. Signup sigue deshabilitado y sesiones anónimas no leen roster/historial.
