@@ -19,3 +19,9 @@
 - Verificación: `npm run build` aprobado, cuatro pruebas UI aprobadas, `git diff --check` aprobado. Reglas y conexión Firebase aún no verificadas.
 - Estado: local, sin publicación Git ni despliegue Firebase.
 - Pendientes: build, pruebas UI/permisos, configuración y validación Firebase.
+
+## 2026-10-03 — Publicación de revisión
+- Estado: publicado en rama codex/lee-county-firebase y PR borrador #1, commit remoto 380f5fc.
+- Verificación: build y diez pruebas locales aprobados; conexión y reglas Firebase pendientes.
+- Pendientes: revisión, validación de permisos y despliegue.
+- Referencia: https://github.com/rabermudezg13/Kelly_Lee/pull/1.

@@ -15,7 +15,7 @@
 - Staff interpretado provisionalmente como creación de cuentas de acceso; pendiente respuesta sobre registro de entrada/salida de staff.
 - Nuevas cuentas requieren correo verificado y aprobación administrativa; aprobación mediante consola Firebase.
 - Configuración Firebase declarada mediante variables VITE_FIREBASE; app web existente confirmada en consola; servicios habilitados y conexión real pendientes de revisar.
-- Sin despliegue ni escritura de visitantes reales. Publicación Git pendiente.
+- Sin despliegue ni escritura de visitantes reales. Publicado en rama `codex/lee-county-firebase`, PR borrador #1.
 - Demo explícita con personas ficticias en memoria para pruebas locales.
 
 ## Historial
@@ -24,9 +24,9 @@
 - Objetivo: crear `.agents/skills` y `.agents/date-format.md`; copiar manejo de fechas de app original.
 - Cambios: documentación y utilidades adaptadas de `kelly-app-v2@1589e02`; UTC, America/New_York, AM/PM con segundos, clave local YYYY-MM-DD. Conservación de offsets explícitos y parseo centralizado. Roster usa estas utilidades.
 - Verificación: diez pruebas aprobadas (cuatro UI y seis fechas); build TypeScript/Vite correcto; git diff --check correcto.
-- Estado: implementado localmente; pendiente publicación Git.
-- Referencia: commit local inicial `50b7d6a`; bootstrap remoto `a9bf863`.
-- Pendientes: publicar en rama de revisión; conexión/despliegue Firebase aún sin validar.
+- Estado: implementado localmente; publicado en PR borrador #1.
+- Referencia: commit remoto `380f5fc`; PR https://github.com/rabermudezg13/Kelly_Lee/pull/1.
+- Pendientes: revisar PR #1; conexión/despliegue Firebase aún sin validar.
 - Detalle: `CHANGELOG.md`.
 
 
@@ -34,7 +34,7 @@
 - Objetivo: crear `.codex/commands` y `.codex/fearures.md` con el nombre exacto indicado.
 - Cambios: carpeta, archivo vacío fearures.md y .gitkeep para conservar commands en Git.
 - Verificación: existencia local comprobada. Sin cambios funcionales.
-- Estado: creado localmente; publicación Git pendiente.
+- Estado: creado localmente; publicado en PR borrador #1.
 - Pendientes: ninguno para esta estructura.
 - Detalle: `CHANGELOG.md`.
 
@@ -47,3 +47,6 @@
 - Estado: implementación local en curso; no publicada, no desplegada.
 - Pendientes: verificar UI y reglas; revisar frontdeskbase; configurar web app; publicar código y luego validar conexión real.
 - Detalle: `CHANGELOG.md`.
+
+## Publicación de esta revisión
+Código y estructura publicados en PR borrador #1 (`380f5fc`). Sin integración a main ni despliegue Firebase. Pruebas de reglas/emulador y aceptación autenticada pendientes; no declaradas como verificadas.
